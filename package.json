@@ -1,0 +1,27 @@
+{
+  "name": "laravel-elixir-riot",
+  "version": "1.0.0",
+  "description": "Laravel Elixir - RiotJS extension",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://duxet@github.com/duxet/laravel-elixir-riot.git"
+  },
+  "keywords": [
+    "laravel",
+    "elixir",
+    "riot"
+  ],
+  "author": "duxet",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/duxet/laravel-elixir-riot/issues"
+  },
+  "homepage": "https://github.com/duxet/laravel-elixir-riot#readme",
+  "dependencies": {
+    "gulp-riot": "^0.2.15"
+  }
+}
