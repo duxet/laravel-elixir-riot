@@ -4,9 +4,7 @@ var elixir = require('laravel-elixir')
 var utilities = require('laravel-elixir/ingredients/commands/Utilities')
 var notification = require('laravel-elixir/ingredients/commands/Notification')
 
-
 elixir.extend('riot', function (src, output) {
-
     var config = this
 
     var srcDir = config.assetsDir + 'riot'
@@ -22,7 +20,7 @@ elixir.extend('riot', function (src, output) {
             .pipe(riot()).on('error', onError)
             .pipe(gulp.dest(output || config.jsOutput))
             .pipe(new notification().message('Riot Compiled!'))
-    });
+    })
 
     this.registerWatcher('riot', srcDir + '/**/*.tag')
 
