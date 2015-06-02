@@ -8,7 +8,7 @@ elixir.extend('riot', function (src, output) {
     var config = this
 
     var srcDir = config.assetsDir + 'riot'
-    src = "./" + utilities.buildGulpSrc(src, srcDir)
+    src = "./" + utilities.buildGulpSrc(src, srcDir, '**/*.tag')
 
     gulp.task('riot', function () {
         var onError = function(e) {
