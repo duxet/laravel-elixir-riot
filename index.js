@@ -1,28 +1,46 @@
 var gulp = require('gulp')
 var riot = require('gulp-riot')
-var elixir = require('laravel-elixir')
-var utilities = require('laravel-elixir/ingredients/commands/Utilities')
-var notification = require('laravel-elixir/ingredients/commands/Notification')
+var Elixir = require('laravel-elixir')
 
-elixir.extend('riot', function (src, output) {
-    var config = this
+var $ = Elixir.Plugins;
+var config = Elixir.config;
 
-    var srcDir = config.assetsDir + 'riot'
-    src = "./" + utilities.buildGulpSrc(src, srcDir, '**/*.tag')
+Elixir.extend('riot', function (src, output, options) {
+    config.js.riot = {
+        folder: 'riot'
+    };
 
-    gulp.task('riot', function () {
-        var onError = function(e) {
-            new notification().error(e, 'Riot Compilation Failed!')
-            this.emit('end')
-        }
+    new Elixir.Task('riot', function() {
+        var paths = prepGulpPaths(src, output);
 
-        return gulp.src(src)
-            .pipe(riot()).on('error', onError)
-            .pipe(gulp.dest(output || config.jsOutput))
-            .pipe(new notification().message('Riot Compiled!'))
+        this.log(paths.src, paths.output);
+
+        return (
+            gulp
+            .src(paths.src.path)
+            .pipe(riot()
+                .on('error', function(e) {
+                    new Elixir.Notification('Riot Compilation Failed!');
+
+                    this.emit('end');
+                }))
+            .pipe($.concat(paths.output.name))
+            .pipe(gulp.dest(paths.output.baseDir))
+            .pipe(new Elixir.Notification('Riot Compiled!'))
+        );
     })
-
-    this.registerWatcher('riot', srcDir + '/**/*.tag')
-
-    return this.queueTask('riot')
+    .watch(config.get('assets.js.riot.folder') + '/**/*.tag');
 });
+
+/**
+ * Prep the Gulp src and output paths.
+ *
+ * @param  {string|array} src
+ * @param  {string|null}  output
+ * @return {object}
+ */
+var prepGulpPaths = function(src, output) {
+    return new Elixir.GulpPaths()
+        .src(src, config.get('assets.js.riot.folder'))
+        .output(output || config.get('public.js.outputFolder'), 'riot.js');
+};
