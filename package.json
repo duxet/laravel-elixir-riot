@@ -1,6 +1,6 @@
 {
   "name": "laravel-elixir-riot",
-  "version": "2.0.0",
+  "version": "3.0.0",
   "description": "Laravel Elixir - RiotJS extension",
   "main": "index.js",
   "scripts": {
@@ -22,6 +22,6 @@
   },
   "homepage": "https://github.com/duxet/laravel-elixir-riot#readme",
   "dependencies": {
-    "gulp-riot": "^0.2.15"
+    "gulp-riot": "^0.4.9"
   }
 }
